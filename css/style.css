@@ -2,3 +2,108 @@
 @media(max-width:900px){.sidebar{width:210px}.main{margin-left:210px;padding:0 20px 50px}.stats{grid-template-columns:repeat(2,1fr)}.grid.two,.goal-grid{grid-template-columns:1fr}}
 @media(max-width:700px){body{font-size:13px;padding-bottom:72px}.sidebar{display:none}.main{margin-left:0;padding:0 12px 30px}.topbar{height:70px}.menu-btn{display:block;background:var(--surface);border:1px solid var(--line);width:38px;height:38px;border-radius:10px;color:var(--text)}.topbar>div:nth-child(2){margin-right:auto;margin-left:10px}.topbar h1{font-size:19px}.top-actions>span{display:none}.top-actions .primary-btn{padding:9px 10px;font-size:11px}.hero{padding:20px;border-radius:17px;display:block}.hero h2{font-size:23px}.hero-score{text-align:left;margin-top:18px}.hero-score strong{font-size:32px}.stats{grid-template-columns:1fr 1fr;gap:8px}.stat{padding:13px;min-height:95px}.stat b{font-size:21px}.card{padding:14px;border-radius:15px}.section-head{align-items:flex-start}.section-head h2{font-size:22px}.section-head .primary-btn{white-space:nowrap}.filters{display:grid;grid-template-columns:1fr 1fr}.filters input{grid-column:1/-1}.form-grid{grid-template-columns:1fr}.form-grid .full{grid-column:auto}.profile-card{display:block;text-align:center}.profile-avatar{margin:auto}.profile-info p{margin-left:auto;margin-right:auto}.profile-links{justify-content:center}.calendar-card{padding:7px}.weekdays,.calendar-grid{grid-template-columns:repeat(7,minmax(45px,1fr))}.day{min-height:75px;padding:5px}.day-task{font-size:8px}.mobile-nav{position:fixed;display:grid;grid-template-columns:repeat(5,1fr);left:0;right:0;bottom:0;height:66px;background:var(--surface);border-top:1px solid var(--line);z-index:90;box-shadow:0 -10px 30px rgba(20,20,50,.1)}.mobile-nav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:var(--muted);font-size:18px;font-weight:800}.mobile-nav a span{font-size:8px}.mobile-nav a.active{color:var(--primary)}.toast{left:12px;right:12px;bottom:78px;text-align:center}.timer-card #timerDisplay{font-size:38px}.goal-grid{gap:10px}.task-row{grid-template-columns:28px 1fr}.task-row .row-actions{grid-column:2}.task-row>.status{grid-column:2;justify-self:start}.top-actions{gap:5px}.analytics-filters{display:grid}.analytics-filters input,.analytics-filters select{width:100%}}
 @media(max-width:700px){.menu-btn{order:0}.topbar>div:nth-child(2){margin-left:8px}.sidebar{display:flex;transform:translateX(-105%);transition:transform .22s ease;box-shadow:12px 0 35px rgba(20,25,60,.18);z-index:120;width:min(290px,86vw)}.sidebar.open{transform:translateX(0)}.sidebar .brand{padding-bottom:18px}.sidebar nav a{padding:14px}.sidebar .side-bottom{padding-bottom:10px}.main{transition:filter .2s ease}.top-actions{min-width:0}.top-actions .secondary-btn{display:none}.top-actions .primary-btn{white-space:nowrap}.mobile-nav{z-index:90}.modal{max-height:88vh}.button-row button,.button-row .file-btn,.section-head button{min-height:40px}}
+
+/* FocusFlow v1.3 — desktop reliability, responsive layout and readable typography */
+:root{--font-ui:"Inter","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--font-ui);font-size:15px;line-height:1.5;overflow-x:hidden}
+button,input,select,textarea{font-family:var(--font-ui);font-size:14px}
+button{font-weight:650}
+.main,.page,.grid,.grid.two,.goal-grid,.card,.section-head,.card-head,.task-row,.activity-row,.goal-row,.profile-card{min-width:0}
+.page{width:100%}
+.section-head>div,.card-head>div,.profile-info{min-width:0}
+.section-head h2,.card-head h3,.task-title,.meta,.muted,.profile-info p,.profile-links a,.insight,.cat span,.cat b{overflow-wrap:anywhere;word-break:break-word}
+.meta,.muted{font-size:11px;line-height:1.45}
+label{font-size:11px;font-weight:600;line-height:1.3}
+.stat span,.stat small{font-size:11px}
+.stat b{font-size:24px;font-weight:750}
+.primary-btn,.secondary-btn,.danger-btn,.ghost-btn,.file-btn{font-size:13px;font-weight:650;letter-spacing:0}
+.card{overflow:hidden}
+.profile-avatar{overflow:hidden}
+.profile-avatar img{width:100%;height:100%;display:block;object-fit:cover;border-radius:inherit}
+.photo-help{color:var(--muted);font-size:10px;margin-top:-6px}
+
+/* Analytics: keep the information dense without creating a giant empty section. */
+#analytics .stats{margin-top:10px}
+#analytics .card{margin-bottom:12px}
+#analytics .trend{height:155px;padding:8px 3px 18px}
+#analytics .bars{height:125px}
+#analytics .cat{margin:8px 0}
+
+/* Better desktop spacing and readable content widths. */
+@media(min-width:901px){
+  .main{padding-left:28px;padding-right:28px}
+  .page{max-width:1320px}
+  .grid.two{gap:14px}
+  .card{padding:17px}
+}
+
+/* Tablet */
+@media(max-width:900px) and (min-width:701px){
+  .main{min-width:0}
+  .topbar{gap:14px}
+  .top-actions{min-width:0}
+  .top-actions .primary-btn{white-space:nowrap}
+  .grid.two{grid-template-columns:1fr}
+}
+
+/* Phone */
+@media(max-width:700px){
+  body{font-size:14px;padding-bottom:74px}
+  .main{padding:0 12px 30px;min-width:0}
+  .topbar{height:auto;min-height:70px;padding:12px 0;gap:8px;align-items:center}
+  .topbar>div:nth-child(2){min-width:0;flex:1;margin:0 2px 0 8px}
+  .topbar h1{font-size:20px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .eyebrow{font-size:9px;letter-spacing:.09em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .top-actions{flex:0 0 auto;gap:5px}
+  .top-actions .primary-btn{font-size:12px;padding:9px 10px;min-height:38px}
+  .hero p{line-height:1.55}
+  .stats{margin:12px 0;gap:8px}
+  .stat{min-width:0;padding:12px}
+  .stat b{font-size:20px}
+  .card{padding:14px;margin-bottom:12px}
+  .section-head{gap:10px;margin:6px 0 14px}
+  .section-head h2{font-size:21px;line-height:1.2}
+  .section-head p{font-size:11px;line-height:1.45}
+  .section-head .primary-btn{flex:0 0 auto}
+  .button-row{gap:7px}
+  .button-row button,.button-row .file-btn,.section-head button{min-height:40px}
+  .form-grid{gap:10px}
+  input,select,textarea{font-size:16px;line-height:1.35;min-height:42px}
+  textarea{min-height:96px}
+  label{font-size:11px}
+  .filters{gap:8px}
+  .task-row,.activity-row,.goal-row{min-width:0}
+  .task-title{font-size:13px;line-height:1.35}
+  .row-actions{flex-wrap:wrap}
+  .calendar-card{max-width:100%;overflow-x:auto}
+  .weekdays,.calendar-grid{min-width:315px}
+  .day-task{white-space:normal;overflow-wrap:anywhere}
+  .profile-card{padding:18px 14px}
+  .profile-info h2{font-size:20px;overflow-wrap:anywhere}
+  .profile-info p{font-size:11px;line-height:1.55}
+  .profile-links a{font-size:10px}
+  .profile-stats{grid-template-columns:1fr 1fr}
+  .modal-backdrop{padding:10px}
+  .modal{width:100%;max-width:560px;max-height:90vh;padding:18px 14px;border-radius:15px}
+  .modal h2{font-size:20px}
+  .modal-actions{position:sticky;bottom:0;background:var(--surface);padding-top:8px}
+  #analytics .stats{grid-template-columns:1fr 1fr}
+  #analytics .grid.two{gap:0}
+  #analytics .trend{height:130px;overflow-x:auto}
+  #analytics .bars{height:100px}
+  #analytics .trend-col{min-width:20px}
+  #analytics .card{padding:13px}
+  #analytics .cat{grid-template-columns:minmax(70px,90px) 1fr 48px;gap:6px}
+}
+
+/* Very small phones */
+@media(max-width:380px){
+  .main{padding-left:9px;padding-right:9px}
+  .topbar h1{font-size:18px}
+  .top-actions .primary-btn{padding:8px 8px;font-size:11px}
+  .stats{grid-template-columns:1fr}
+  .profile-stats{grid-template-columns:1fr 1fr}
+  .section-head{align-items:flex-start}
+  .section-head .primary-btn{min-height:38px;padding:8px 9px}
+}
