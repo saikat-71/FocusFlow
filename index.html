@@ -1,220 +1,31 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Personal Productivity & Life Tracker">
-  <title>FocusFlow — Personal Productivity Tracker</title>
-  <link rel="icon" type="image/png" href="assets/logo.png">
-  <link rel="apple-touch-icon" href="assets/logo.png">
-  <link rel="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#5b5ce2">
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#5b5ce2"><meta name="description" content="FocusFlow personal productivity and life tracker"><link rel="icon" href="assets/logo.png"><link rel="apple-touch-icon" href="assets/logo.png"><link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="css/style.css"><title>FocusFlow</title>
 </head>
 <body>
-  <div class="app-shell">
-    <aside class="sidebar" id="sidebar">
-      <div class="brand">
-        <div class="brand-mark"><img src="assets/logo.png" alt="FocusFlow logo"></div>
-        <div><strong>FocusFlow</strong><span>Personal Tracker</span></div>
-      </div>
-      <nav>
-        <a class="nav-link active" href="#dashboard" data-page="dashboard">⌂ <span>Dashboard</span></a>
-        <a class="nav-link" href="#tasks" data-page="tasks">✓ <span>Tasks</span></a>
-        <a class="nav-link" href="#tracker" data-page="tracker">◷ <span>Time Tracker</span></a>
-        <a class="nav-link" href="#goals" data-page="goals">◎ <span>Goals</span></a>
-        <a class="nav-link" href="#calendar" data-page="calendar">▦ <span>Calendar</span></a>
-        <a class="nav-link" href="#review" data-page="review">▤ <span>Weekly Review</span></a>
-        <a class="nav-link" href="#analytics" data-page="analytics">◈ <span>Analytics</span></a>
-        <a class="nav-link" href="#settings" data-page="settings">⚙ <span>Settings</span></a>
-      </nav>
-      <div class="sidebar-bottom">
-        <button class="theme-toggle" id="themeToggle">☾ <span>Dark mode</span></button>
-        <button class="theme-toggle" id="exportData">⇩ <span>Export backup</span></button><label class="theme-toggle import-label">⇧ <span>Import backup</span><input id="importData" type="file" accept="application/json" hidden></label><button class="reset-btn" id="resetData">Reset all data</button>
-      </div>
-    </aside>
-
-    <main class="main">
-      <header class="topbar">
-        <button class="mobile-menu" id="mobileMenu">☰</button>
-        <div>
-          <p class="eyebrow" id="pageEyebrow">Personal productivity</p>
-          <h1 id="pageTitle">Dashboard</h1>
-        </div>
-        <div class="top-actions">
-          <span class="today-label" id="todayLabel"></span>
-          <button class="primary-btn" id="quickAdd">+ Add Task</button>
-        </div>
-      </header>
-
-      <section id="dashboard" class="page active">
-        <div class="hero">
-          <div>
-            <span class="pill">Daily overview</span>
-            <h2 id="greeting">Good day.</h2>
-            <p>See where your time went, what you finished, and how close you are to your goals.</p>
-          </div>
-          <div class="hero-score">
-            <span>Today's productivity</span>
-            <strong id="productivityScore">0%</strong>
-            <small id="scoreMessage">Start tracking your day.</small>
-          </div>
-        </div>
-
-        <div class="stats-grid">
-          <div class="stat-card"><span>Tasks completed</span><strong id="statCompleted">0</strong><small id="statTaskTotal">0 total tasks</small></div>
-          <div class="stat-card"><span>Productive time</span><strong id="statProductive">0h 0m</strong><small>Tracked activities</small></div>
-          <div class="stat-card"><span>Unproductive time</span><strong id="statLazy">0h 0m</strong><small>Explicitly logged as unproductive</small></div><div class="stat-card"><span>Untracked time</span><strong id="statUntracked">0h 0m</strong><small>Not logged yet — not assumed lazy</small></div>
-          <div class="stat-card"><span>Goal progress</span><strong id="statGoal">0%</strong><small id="statGoalText">0 active goals</small></div>
-        </div>
-        <div class="dashboard-grid lower">
-          <div class="panel"><div class="panel-head"><div><h3>Daily timeline</h3><p>Timed tasks and activities</p></div></div><div id="dailyTimeline" class="timeline"></div></div>
-          <div class="panel"><div class="panel-head"><div><h3>Planned vs actual</h3><p>Today’s scheduled task time vs tracked productive time.</p></div></div><div id="plannedActual"></div></div>
-          <div class="panel"><div class="panel-head"><div><h3>Productivity score</h3><p>Task completion, time quality and goal progress.</p></div></div><div id="scoreBreakdown"></div></div>
-        </div>
-
-        <div class="panel insight-panel">
-          <div class="panel-head"><div><h3>Productivity insights</h3><p>Patterns detected from your tracked data</p></div><span class="pill subtle">Smart analysis</span></div>
-          <div id="dashboardInsights" class="insights"></div>
-        </div>
-
-        <div class="dashboard-grid">
-          <div class="panel chart-panel">
-            <div class="panel-head"><div><h3>7-day productivity</h3><p>Productive vs. unproductive hours</p></div></div>
-            <div class="bar-chart" id="weekChart"></div>
-          </div>
-          <div class="panel">
-            <div class="panel-head"><div><h3>Time by category</h3><p>Where your tracked time goes</p></div></div>
-            <div id="categoryChart" class="category-chart"></div>
-          </div>
-        </div>
-
-        <div class="dashboard-grid lower">
-          <div class="panel">
-            <div class="panel-head"><div><h3>Today's tasks</h3><p id="todayTaskSummary">No tasks yet</p></div><a href="#tasks" class="text-link">View all →</a></div>
-            <div id="todayTasks" class="task-list compact"></div>
-          </div>
-          <div class="panel">
-            <div class="panel-head"><div><h3>Goal progress</h3><p>How far you are from your targets</p></div><a href="#goals" class="text-link">Manage →</a></div>
-            <div id="dashboardGoals" class="goal-list"></div>
-          </div>
-        </div>
-      </section>
-
-      <section id="tasks" class="page">
-        <div class="section-head"><div><span class="pill">Task management</span><h2>My Tasks</h2><p>Plan the work, record the details, and mark it done.</p></div><button class="primary-btn" id="addTaskBtn">+ New Task</button></div>
-        <div class="filters">
-          <input id="taskSearch" type="search" placeholder="Search tasks...">
-          <select id="taskStatusFilter"><option value="all">All status</option><option value="pending">Pending</option><option value="progress">In progress</option><option value="completed">Completed</option></select>
-          <select id="taskPriorityFilter"><option value="all">All priority</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option></select>
-        </div>
-        <div id="taskList" class="task-list"></div>
-      </section>
-
-      <section id="tracker" class="page">
-        <div class="section-head"><div><span class="pill">Daily life</span><h2>Time Tracker</h2><p>Track productive work, personal time, and the hours that disappear.</p></div></div>
-        <div class="tracker-grid">
-          <div class="panel timer-panel">
-            <div class="timer-ring"><span id="timerDisplay">00:00:00</span><small id="timerStatus">Ready to track</small></div>
-            <div class="timer-controls"><select id="timerCategory"></select><select id="timerTask"><option value="">No linked task</option></select><select id="timerGoal"><option value="">No linked goal</option></select><button class="primary-btn" id="timerStart">▶ Start</button><button class="danger-btn hidden" id="timerStop">■ Stop</button></div>
-          </div>
-          <div class="panel manual-panel">
-            <div class="panel-head"><div><h3>Add time manually</h3><p>For activities you forgot to time live.</p></div></div>
-            <form id="activityForm" class="form-grid">
-              <label>Activity<select id="activityCategory" required></select></label>
-              <label>Date<input id="activityDate" type="date" required></label>
-              <label>Duration (minutes)<input id="activityDuration" type="number" min="1" required placeholder="e.g. 90"></label>
-              <label>Start time<input id="activityStart" type="time"></label>
-              <label>End time<input id="activityEnd" type="time"></label>
-              <label>Linked task<select id="activityTask"><option value="">No linked task</option></select></label>
-              <label>Linked goal<select id="activityGoal"><option value="">No linked goal</option></select></label>
-              <label>Note<input id="activityNote" type="text" placeholder="Optional note"></label>
-              <button class="primary-btn full" type="submit">+ Save activity</button>
-            </form>
-          </div>
-        </div>
-        <div class="panel">
-          <div class="panel-head"><div><h3>Today's activity log</h3><p>Delete anything you entered by mistake.</p></div><span class="pill subtle" id="todayTracked">0h 0m tracked</span></div>
-          <div id="activityList" class="activity-list"></div>
-        </div>
-      </section>
-
-      <section id="goals" class="page">
-        <div class="section-head"><div><span class="pill">Long-term progress</span><h2>My Goals</h2><p>Turn your plans into measurable targets.</p></div><button class="primary-btn" id="addGoalBtn">+ New Goal</button></div>
-        <div id="goalCards" class="goal-cards"></div>
-      </section>
-
-      <section id="calendar" class="page">
-        <div class="section-head"><div><span class="pill">Planning view</span><h2>Calendar</h2><p>See tasks and tracked activities across the month.</p></div></div>
-        <div class="panel calendar-panel">
-          <div class="calendar-head"><button class="secondary-btn" id="prevMonth">←</button><h3 id="calendarTitle"></h3><button class="secondary-btn" id="nextMonth">→</button></div>
-          <div class="calendar-weekdays"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
-          <div id="calendarGrid" class="calendar-grid"></div>
-        </div>
-      </section>
-
-      <section id="review" class="page">
-        <div class="section-head"><div><span class="pill">Weekly review</span><h2>Weekly Review</h2><p>See what you accomplished, where your time went, and which goals need attention.</p></div></div>
-        <div id="reviewStats" class="stats-grid"></div>
-        <div class="dashboard-grid lower">
-          <div class="panel"><div class="panel-head"><div><h3>Week breakdown</h3><p>Productive and unproductive time</p></div></div><div id="reviewBreakdown"></div></div>
-          <div class="panel"><div class="panel-head"><div><h3>Goal health</h3><p>Progress and pace toward deadlines</p></div></div><div id="reviewGoals"></div></div>
-        </div>
-        <div class="panel"><div class="panel-head"><div><h3>Review insights</h3><p>Automatic observations from your recorded data</p></div></div><div id="reviewInsights" class="insights"></div></div>
-      </section>
-
-      <section id="analytics" class="page">
-        <div class="section-head"><div><span class="pill">Long-term analysis</span><h2>Analytics</h2><p>Compare your productivity across months and years.</p></div></div>
-        <div class="analytics-controls panel">
-          <label>Period<select id="analyticsPeriod"><option value="month">Month</option><option value="year">Year</option></select></label>
-          <label>Month<input id="analyticsMonth" type="month"></label>
-          <label>Year<select id="analyticsYear"></select></label>
-        </div>
-        <div id="analyticsStats" class="stats-grid"></div>
-        <div class="dashboard-grid">
-          <div class="panel"><div class="panel-head"><div><h3>Time trend</h3><p>Productive vs unproductive time</p></div></div><div id="analyticsTrend" class="analytics-trend"></div></div>
-          <div class="panel"><div class="panel-head"><div><h3>Category leaders</h3><p>Where most of your tracked time went</p></div></div><div id="analyticsCategories" class="category-chart"></div></div>
-        </div>
-        <div class="panel"><div class="panel-head"><div><h3>Analytics insights</h3><p>Long-term patterns from your records</p></div></div><div id="analyticsInsights" class="insights"></div></div>
-      </section>
-
-      <section id="settings" class="page">
-        <div class="section-head"><div><span class="pill">Preferences</span><h2>Settings</h2><p>Control reminders and personal tracking preferences.</p></div></div>
-        <div class="settings-grid">
-          <div class="panel"><div class="panel-head"><div><h3>Reminders</h3><p>Get notified about upcoming tasks while FocusFlow is open.</p></div></div>
-            <label class="switch-row"><span><strong>Task reminders</strong><small>Check scheduled tasks every 30 seconds.</small></span><input id="reminderEnabled" type="checkbox"></label>
-            <label class="switch-row"><span><strong>Reminder lead time</strong><small>How early to notify you.</small></span><select id="reminderLead"><option value="5">5 minutes</option><option value="10">10 minutes</option><option value="15">15 minutes</option><option value="30">30 minutes</option></select></label>
-            <button class="primary-btn" id="notificationPermission">Enable browser notifications</button>
-            <div id="notificationStatus" class="task-meta"></div>
-          </div>
-          <div class="panel"><div class="panel-head"><div><h3>Daily schedule</h3><p>Used to estimate untracked time.</p></div></div>
-            <div class="row settings-row"><label>Wake time<input id="wakeTime" type="time"></label><label>Sleep time<input id="sleepTime" type="time"></label></div>
-            <button class="secondary-btn" id="saveSchedule">Save schedule</button>
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <nav class="mobile-bottom-nav" id="mobileBottomNav">
-    <a href="#dashboard" data-page="dashboard">⌂<span>Home</span></a>
-    <a href="#tasks" data-page="tasks">✓<span>Tasks</span></a>
-    <a href="#tracker" data-page="tracker">◷<span>Track</span></a>
-    <a href="#goals" data-page="goals">◎<span>Goals</span></a>
-    <a href="#analytics" data-page="analytics">◈<span>More</span></a>
-  </nav>
-  <div class="modal-backdrop hidden" id="modalBackdrop">
-    <div class="modal" id="modalContent"></div>
-  </div>
-  <div id="toast" class="toast"></div>
-  <script src="js/storage.js"></script>
-  <script src="js/tasks.js"></script>
-  <script src="js/tracker.js"></script>
-  <script src="js/goals.js"></script>
-  <script src="js/dashboard.js"></script>
-  <script src="js/calendar.js"></script>
-  <script src="js/analytics.js"></script>
-  <script src="js/notifications.js"></script>
-  <script src="js/app.js"></script>
-</body>
-</html>
+<div id="app">
+<aside class="sidebar" id="sidebar"><div class="brand"><img src="assets/logo.png"><div><strong>FocusFlow</strong><small>Personal productivity</small></div></div><nav id="sideNav">
+<a href="#dashboard" data-page="dashboard">⌂<span>Dashboard</span></a><a href="#tasks" data-page="tasks">✓<span>Tasks</span></a><a href="#tracker" data-page="tracker">◷<span>Time Tracker</span></a><a href="#goals" data-page="goals">◎<span>Goals</span></a><a href="#calendar" data-page="calendar">▦<span>Calendar</span></a><a href="#analytics" data-page="analytics">◈<span>Analytics</span></a><a href="#review" data-page="review">▤<span>Weekly Review</span></a><a href="#profile" data-page="profile">●<span>My Profile</span></a><a href="#settings" data-page="settings">⚙<span>Settings</span></a>
+</nav><div class="side-bottom"><button id="themeBtn" class="ghost-btn">☀ <span>Light mode</span></button><button id="exportBtn" class="ghost-btn">⇩ <span>Backup data</span></button></div></aside>
+<main class="main"><header class="topbar"><button id="menuBtn" class="menu-btn">☰</button><div><div class="eyebrow" id="eyebrow">Personal productivity</div><h1 id="pageTitle">Dashboard</h1></div><div class="top-actions"><span id="dateLabel"></span><button id="quickAdd" class="primary-btn">＋ Add task</button></div></header>
+<div id="toast" class="toast"></div>
+<section id="dashboard" class="page active"><div class="hero"><div><span class="pill">Today</span><h2 id="greeting">Good evening.</h2><p>Track what matters. Learn where your time goes.</p></div><div class="hero-score"><small>Productivity score</small><strong id="score">0%</strong><span id="scoreText">Start tracking to build your score.</span></div></div>
+<div class="stats"><div class="stat"><span>Tasks completed</span><b id="dCompleted">0</b><small id="dTaskTotal">0 total</small></div><div class="stat"><span>Productive</span><b id="dProductive">0m</b><small>logged today</small></div><div class="stat"><span>Unproductive</span><b id="dUnproductive">0m</b><small>explicitly logged</small></div><div class="stat"><span>Untracked</span><b id="dUntracked">0m</b><small>within your schedule</small></div></div>
+<div class="grid two"><div class="card"><div class="card-head"><div><h3>Today</h3><p id="todaySummary">Nothing planned yet.</p></div><a href="#tasks" class="text-link">View tasks</a></div><div id="todayTasks" class="list"></div></div><div class="card"><div class="card-head"><div><h3>Daily timeline</h3><p>Timed tasks and activities</p></div></div><div id="timeline" class="timeline"></div></div></div>
+<div class="card"><div class="card-head"><div><h3>Productivity insights</h3><p>Automatic observations from your data</p></div></div><div id="insights" class="insights"></div></div>
+<div class="grid two"><div class="card"><div class="card-head"><div><h3>Planned vs actual</h3><p>How much of your planned work became real focused time</p></div></div><div id="plannedActual"></div></div><div class="card"><div class="card-head"><div><h3>Goal progress</h3><p>Your active goals</p></div><a href="#goals" class="text-link">Manage</a></div><div id="goalMini"></div></div></div>
+</section>
+<section id="tasks" class="page"><div class="section-head"><div><span class="pill">Task manager</span><h2>Tasks</h2><p>Add, edit, complete and schedule your work.</p></div><button id="addTask" class="primary-btn">＋ New task</button></div><div class="card filters"><input id="taskSearch" placeholder="Search tasks…"><select id="taskStatus"><option value="all">All status</option><option value="pending">Pending</option><option value="progress">In progress</option><option value="completed">Completed</option></select><select id="taskPriority"><option value="all">All priority</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option></select></div><div id="taskList" class="task-list"></div></section>
+<section id="tracker" class="page"><div class="section-head"><div><span class="pill">Time tracking</span><h2>Time Tracker</h2><p>Use the live timer or log past activity manually.</p></div></div><div class="grid two"><div class="card timer-card"><span class="pill">Focus timer</span><div id="timerDisplay">00:00:00</div><div id="timerStatus">Ready to track</div><div class="form-grid"><label>Category<select id="timerCategory"></select></label><label>Task<select id="timerTask"></select></label><label>Goal<select id="timerGoal"></select></label></div><div class="button-row"><button id="startTimer" class="primary-btn">▶ Start</button><button id="stopTimer" class="danger-btn hidden">■ Stop & save</button></div></div><div class="card"><div class="card-head"><div><h3>Manual activity</h3><p>Record time you already spent.</p></div></div><form id="activityForm" class="form-grid"><label>Date<input id="aDate" type="date" required></label><label>Category<select id="aCategory"></select></label><label>Duration (minutes)<input id="aDuration" type="number" min="1" required placeholder="90"></label><label>Start time<input id="aStart" type="time"></label><label>End time<input id="aEnd" type="time"></label><label>Task<select id="aTask"></select></label><label>Goal<select id="aGoal"></select></label><label class="full">Note<input id="aNote" placeholder="Optional note"></label><button class="primary-btn full">Save activity</button></form></div></div><div class="card"><div class="card-head"><div><h3>Today's activity</h3><p id="trackedToday">0m tracked</p></div></div><div id="activityList" class="list"></div></div></section>
+<section id="goals" class="page"><div class="section-head"><div><span class="pill">Goal system</span><h2>Goals</h2><p>Connect goals to tasks and activities for automatic progress.</p></div><button id="addGoal" class="primary-btn">＋ New goal</button></div><div id="goalList" class="goal-grid"></div></section>
+<section id="calendar" class="page"><div class="section-head"><div><span class="pill">Planning</span><h2>Calendar</h2><p>See your tasks by date.</p></div><div class="calendar-nav"><button id="prevMonth" class="secondary-btn">←</button><strong id="calendarTitle"></strong><button id="nextMonth" class="secondary-btn">→</button></div></div><div class="card calendar-card"><div class="weekdays"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div><div id="calendarGrid" class="calendar-grid"></div></div></section>
+<section id="analytics" class="page"><div class="section-head"><div><span class="pill">Long-term analysis</span><h2>Analytics</h2><p>Understand your productivity across a month or year.</p></div></div><div class="card filters analytics-filters"><select id="analyticsMode"><option value="month">Month</option><option value="year">Year</option></select><input id="analyticsMonth" type="month"><select id="analyticsYear"></select></div><div id="analyticsStats" class="stats"></div><div class="grid two"><div class="card"><div class="card-head"><div><h3>Time trend</h3><p>Productive vs unproductive</p></div></div><div id="trend" class="trend"></div></div><div class="card"><div class="card-head"><div><h3>Categories</h3><p>Where your tracked time went</p></div></div><div id="categoryChart"></div></div></div><div class="card"><div class="card-head"><div><h3>Analysis</h3><p>Automatic long-term observations</p></div></div><div id="analyticsInsights" class="insights"></div></div></section>
+<section id="review" class="page"><div class="section-head"><div><span class="pill">7-day report</span><h2>Weekly Review</h2><p>See what worked and what needs attention.</p></div></div><div id="reviewStats" class="stats"></div><div class="grid two"><div class="card"><div class="card-head"><div><h3>Week breakdown</h3><p>Productive and unproductive time</p></div></div><div id="weekBreakdown"></div></div><div class="card"><div class="card-head"><div><h3>Goal health</h3><p>Are you on pace?</p></div></div><div id="goalHealth"></div></div></div><div class="card"><div class="card-head"><div><h3>Weekly insights</h3></div></div><div id="reviewInsights" class="insights"></div></div></section>
+<section id="profile" class="page"><div class="section-head"><div><span class="pill">Personal identity</span><h2>My Profile</h2><p>This profile belongs to you and can be edited anytime.</p></div><button id="editProfile" class="primary-btn">✎ Edit profile</button></div><div class="profile-card card"><div class="profile-avatar" id="profileAvatar">S</div><div class="profile-info"><h2 id="profileName">Your Name</h2><p id="profileTitle">Student / Professional</p><p id="profileBio">Add a short bio about yourself.</p><div class="profile-links" id="profileLinks"></div></div></div><div class="grid two"><div class="card"><h3>Personal stats</h3><div id="profileStats" class="profile-stats"></div></div><div class="card"><h3>Profile data</h3><p class="muted">Your profile is stored locally in this browser. Export a backup before changing devices.</p><button id="profileBackup" class="secondary-btn">Export my backup</button></div></div></section>
+<section id="settings" class="page"><div class="section-head"><div><span class="pill">Preferences</span><h2>Settings</h2><p>Manage appearance, reminders and your schedule.</p></div></div><div class="grid two"><div class="card"><h3>Appearance</h3><button id="settingsTheme" class="secondary-btn">Toggle dark/light mode</button></div><div class="card"><h3>Task reminders</h3><label class="switch"><span>Enable reminders</span><input id="reminderEnabled" type="checkbox"></label><label>Lead time<select id="reminderLead"><option value="5">5 minutes</option><option value="10">10 minutes</option><option value="15">15 minutes</option><option value="30">30 minutes</option></select></label><button id="enableNotifications" class="primary-btn">Enable browser notifications</button><p id="notificationStatus" class="muted"></p></div><div class="card"><h3>Daily schedule</h3><div class="form-grid"><label>Wake time<input id="wakeTime" type="time"></label><label>Sleep time<input id="sleepTime" type="time"></label></div><button id="saveSchedule" class="secondary-btn">Save schedule</button></div><div class="card"><h3>Data</h3><div class="button-row"><button id="exportData" class="secondary-btn">Export JSON</button><label class="secondary-btn file-btn">Import JSON<input id="importData" type="file" accept="application/json" hidden></label><button id="resetData" class="danger-btn">Reset all data</button></div></div></div></section>
+</main></div>
+<nav class="mobile-nav" id="mobileNav"><a href="#dashboard" data-page="dashboard">⌂<span>Home</span></a><a href="#tasks" data-page="tasks">✓<span>Tasks</span></a><a href="#tracker" data-page="tracker">◷<span>Track</span></a><a href="#goals" data-page="goals">◎<span>Goals</span></a><a href="#profile" data-page="profile">●<span>Profile</span></a></nav>
+<div id="modal" class="modal-backdrop hidden"><div class="modal"><button id="modalClose" class="modal-close">×</button><div id="modalContent"></div></div></div>
+<script src="js/storage.js"></script><script src="js/tasks.js"></script><script src="js/tracker.js"></script><script src="js/goals.js"></script><script src="js/calendar.js"></script><script src="js/analytics.js"></script><script src="js/review.js"></script><script src="js/profile.js"></script><script src="js/app.js"></script>
+</body></html>
