@@ -25,6 +25,8 @@
         <a class="nav-link" href="#goals" data-page="goals">◎ <span>Goals</span></a>
         <a class="nav-link" href="#calendar" data-page="calendar">▦ <span>Calendar</span></a>
         <a class="nav-link" href="#review" data-page="review">▤ <span>Weekly Review</span></a>
+        <a class="nav-link" href="#analytics" data-page="analytics">◈ <span>Analytics</span></a>
+        <a class="nav-link" href="#settings" data-page="settings">⚙ <span>Settings</span></a>
       </nav>
       <div class="sidebar-bottom">
         <button class="theme-toggle" id="themeToggle">☾ <span>Dark mode</span></button>
@@ -69,6 +71,11 @@
           <div class="panel"><div class="panel-head"><div><h3>Daily timeline</h3><p>Timed tasks and activities</p></div></div><div id="dailyTimeline" class="timeline"></div></div>
           <div class="panel"><div class="panel-head"><div><h3>Planned vs actual</h3><p>Today’s scheduled task time vs tracked productive time.</p></div></div><div id="plannedActual"></div></div>
           <div class="panel"><div class="panel-head"><div><h3>Productivity score</h3><p>Task completion, time quality and goal progress.</p></div></div><div id="scoreBreakdown"></div></div>
+        </div>
+
+        <div class="panel insight-panel">
+          <div class="panel-head"><div><h3>Productivity insights</h3><p>Patterns detected from your tracked data</p></div><span class="pill subtle">Smart analysis</span></div>
+          <div id="dashboardInsights" class="insights"></div>
         </div>
 
         <div class="dashboard-grid">
@@ -155,9 +162,47 @@
         </div>
         <div class="panel"><div class="panel-head"><div><h3>Review insights</h3><p>Automatic observations from your recorded data</p></div></div><div id="reviewInsights" class="insights"></div></div>
       </section>
+
+      <section id="analytics" class="page">
+        <div class="section-head"><div><span class="pill">Long-term analysis</span><h2>Analytics</h2><p>Compare your productivity across months and years.</p></div></div>
+        <div class="analytics-controls panel">
+          <label>Period<select id="analyticsPeriod"><option value="month">Month</option><option value="year">Year</option></select></label>
+          <label>Month<input id="analyticsMonth" type="month"></label>
+          <label>Year<select id="analyticsYear"></select></label>
+        </div>
+        <div id="analyticsStats" class="stats-grid"></div>
+        <div class="dashboard-grid">
+          <div class="panel"><div class="panel-head"><div><h3>Time trend</h3><p>Productive vs unproductive time</p></div></div><div id="analyticsTrend" class="analytics-trend"></div></div>
+          <div class="panel"><div class="panel-head"><div><h3>Category leaders</h3><p>Where most of your tracked time went</p></div></div><div id="analyticsCategories" class="category-chart"></div></div>
+        </div>
+        <div class="panel"><div class="panel-head"><div><h3>Analytics insights</h3><p>Long-term patterns from your records</p></div></div><div id="analyticsInsights" class="insights"></div></div>
+      </section>
+
+      <section id="settings" class="page">
+        <div class="section-head"><div><span class="pill">Preferences</span><h2>Settings</h2><p>Control reminders and personal tracking preferences.</p></div></div>
+        <div class="settings-grid">
+          <div class="panel"><div class="panel-head"><div><h3>Reminders</h3><p>Get notified about upcoming tasks while FocusFlow is open.</p></div></div>
+            <label class="switch-row"><span><strong>Task reminders</strong><small>Check scheduled tasks every 30 seconds.</small></span><input id="reminderEnabled" type="checkbox"></label>
+            <label class="switch-row"><span><strong>Reminder lead time</strong><small>How early to notify you.</small></span><select id="reminderLead"><option value="5">5 minutes</option><option value="10">10 minutes</option><option value="15">15 minutes</option><option value="30">30 minutes</option></select></label>
+            <button class="primary-btn" id="notificationPermission">Enable browser notifications</button>
+            <div id="notificationStatus" class="task-meta"></div>
+          </div>
+          <div class="panel"><div class="panel-head"><div><h3>Daily schedule</h3><p>Used to estimate untracked time.</p></div></div>
+            <div class="row settings-row"><label>Wake time<input id="wakeTime" type="time"></label><label>Sleep time<input id="sleepTime" type="time"></label></div>
+            <button class="secondary-btn" id="saveSchedule">Save schedule</button>
+          </div>
+        </div>
+      </section>
     </main>
   </div>
 
+  <nav class="mobile-bottom-nav" id="mobileBottomNav">
+    <a href="#dashboard" data-page="dashboard">⌂<span>Home</span></a>
+    <a href="#tasks" data-page="tasks">✓<span>Tasks</span></a>
+    <a href="#tracker" data-page="tracker">◷<span>Track</span></a>
+    <a href="#goals" data-page="goals">◎<span>Goals</span></a>
+    <a href="#analytics" data-page="analytics">◈<span>More</span></a>
+  </nav>
   <div class="modal-backdrop hidden" id="modalBackdrop">
     <div class="modal" id="modalContent"></div>
   </div>
@@ -168,6 +213,8 @@
   <script src="js/goals.js"></script>
   <script src="js/dashboard.js"></script>
   <script src="js/calendar.js"></script>
+  <script src="js/analytics.js"></script>
+  <script src="js/notifications.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
