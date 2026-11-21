@@ -27,9 +27,10 @@ function openTaskModal(id=null){
  <label>Priority<select id="fPriority">${['high','medium','low'].map(x=>`<option ${x===(t?.priority||'medium')?'selected':''}>${x[0].toUpperCase()+x.slice(1)}</option>`).join('')}</select></label></div>
  <div class="row"><label>Date<input id="fDate" type="date" required value="${t?.date||todayISO()}"></label><label>Start time<input id="fTime" type="time" value="${t?.startTime||''}"></label></div>
  <div class="row"><label>End time<input id="fEnd" type="time" value="${t?.endTime||''}"></label><label>Location<select id="fLocation">${['Home','University','Office','Library','Other'].map(x=>`<option ${x===(t?.location||'Home')?'selected':''}>${x}</option>`).join('')}</select></label></div>
+ <label>Goal<select id="fGoal"><option value="">No goal</option>${db.goals.map(g=>`<option value="${g.id}" ${g.id===(t?.goalId||"")?"selected":""}>${esc(g.title)}</option>`).join("")}</select></label>
  <label>Notes<input id="fNotes" value="${esc(t?.notes||'')}" placeholder="Optional note"></label>
  <div class="modal-actions"><button type="button" class="secondary-btn" onclick="closeModal()">Cancel</button><button class="primary-btn">${t?'Save changes':'Add task'}</button></div>
  </form>`;
  document.getElementById('modalBackdrop').classList.remove('hidden');
- document.getElementById('taskForm').onsubmit=e=>{e.preventDefault();const obj={id:t?.id||uid('task'),title:fTitle.value.trim(),description:fDesc.value.trim(),category:fCat.value,priority:fPriority.value,date:fDate.value,startTime:fTime.value,endTime:fEnd.value,location:fLocation.value,notes:fNotes.value.trim(),status:t?.status||'pending'};if(t){Object.assign(t,obj)}else db.tasks.push(obj);saveData();closeModal();renderTasks();updateDashboard();showToast(t?'Task updated':'Task added');};
+ document.getElementById('taskForm').onsubmit=e=>{e.preventDefault();const obj={id:t?.id||uid('task'),title:fTitle.value.trim(),description:fDesc.value.trim(),category:fCat.value,priority:fPriority.value,date:fDate.value,startTime:fTime.value,endTime:fEnd.value,location:fLocation.value,notes:fNotes.value.trim(),goalId:fGoal.value,status:t?.status||'pending'};if(t){Object.assign(t,obj)}else db.tasks.push(obj);saveData();closeModal();renderTasks();updateDashboard();showToast(t?'Task updated':'Task added');};
 }

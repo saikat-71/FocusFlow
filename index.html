@@ -21,6 +21,8 @@
         <a class="nav-link" href="#tasks" data-page="tasks">✓ <span>Tasks</span></a>
         <a class="nav-link" href="#tracker" data-page="tracker">◷ <span>Time Tracker</span></a>
         <a class="nav-link" href="#goals" data-page="goals">◎ <span>Goals</span></a>
+        <a class="nav-link" href="#calendar" data-page="calendar">▦ <span>Calendar</span></a>
+        <a class="nav-link" href="#review" data-page="review">▤ <span>Weekly Review</span></a>
       </nav>
       <div class="sidebar-bottom">
         <button class="theme-toggle" id="themeToggle">☾ <span>Dark mode</span></button>
@@ -60,6 +62,10 @@
           <div class="stat-card"><span>Productive time</span><strong id="statProductive">0h 0m</strong><small>Tracked activities</small></div>
           <div class="stat-card"><span>Lazy / unproductive</span><strong id="statLazy">0h 0m</strong><small>Time outside productive work</small></div>
           <div class="stat-card"><span>Goal progress</span><strong id="statGoal">0%</strong><small id="statGoalText">0 active goals</small></div>
+        </div>
+        <div class="dashboard-grid lower">
+          <div class="panel"><div class="panel-head"><div><h3>Planned vs actual</h3><p>Today’s scheduled task time vs tracked productive time.</p></div></div><div id="plannedActual"></div></div>
+          <div class="panel"><div class="panel-head"><div><h3>Productivity score</h3><p>Task completion, time quality and goal progress.</p></div></div><div id="scoreBreakdown"></div></div>
         </div>
 
         <div class="dashboard-grid">
@@ -122,6 +128,24 @@
       <section id="goals" class="page">
         <div class="section-head"><div><span class="pill">Long-term progress</span><h2>My Goals</h2><p>Turn your plans into measurable targets.</p></div><button class="primary-btn" id="addGoalBtn">+ New Goal</button></div>
         <div id="goalCards" class="goal-cards"></div>
+      <section id="calendar" class="page">
+        <div class="section-head"><div><span class="pill">Planning view</span><h2>Calendar</h2><p>See tasks and tracked activities across the month.</p></div></div>
+        <div class="panel calendar-panel">
+          <div class="calendar-head"><button class="secondary-btn" id="prevMonth">←</button><h3 id="calendarTitle"></h3><button class="secondary-btn" id="nextMonth">→</button></div>
+          <div class="calendar-weekdays"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+          <div id="calendarGrid" class="calendar-grid"></div>
+        </div>
+      </section>
+
+      <section id="review" class="page">
+        <div class="section-head"><div><span class="pill">Weekly review</span><h2>Weekly Review</h2><p>See what you accomplished, where your time went, and which goals need attention.</p></div></div>
+        <div id="reviewStats" class="stats-grid"></div>
+        <div class="dashboard-grid lower">
+          <div class="panel"><div class="panel-head"><div><h3>Week breakdown</h3><p>Productive and unproductive time</p></div></div><div id="reviewBreakdown"></div></div>
+          <div class="panel"><div class="panel-head"><div><h3>Goal health</h3><p>Progress and pace toward deadlines</p></div></div><div id="reviewGoals"></div></div>
+        </div>
+        <div class="panel"><div class="panel-head"><div><h3>Review insights</h3><p>Automatic observations from your recorded data</p></div></div><div id="reviewInsights" class="insights"></div></div>
+      </section>
       </section>
     </main>
   </div>
@@ -135,6 +159,7 @@
   <script src="js/tracker.js"></script>
   <script src="js/goals.js"></script>
   <script src="js/dashboard.js"></script>
+  <script src="js/calendar.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
