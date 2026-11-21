@@ -7,6 +7,8 @@
   <title>FocusFlow — Personal Productivity Tracker</title>
   <link rel="icon" type="image/png" href="assets/logo.png">
   <link rel="apple-touch-icon" href="assets/logo.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#5b5ce2">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -26,7 +28,7 @@
       </nav>
       <div class="sidebar-bottom">
         <button class="theme-toggle" id="themeToggle">☾ <span>Dark mode</span></button>
-        <button class="reset-btn" id="resetData">Reset all data</button>
+        <button class="theme-toggle" id="exportData">⇩ <span>Export backup</span></button><label class="theme-toggle import-label">⇧ <span>Import backup</span><input id="importData" type="file" accept="application/json" hidden></label><button class="reset-btn" id="resetData">Reset all data</button>
       </div>
     </aside>
 
@@ -60,10 +62,11 @@
         <div class="stats-grid">
           <div class="stat-card"><span>Tasks completed</span><strong id="statCompleted">0</strong><small id="statTaskTotal">0 total tasks</small></div>
           <div class="stat-card"><span>Productive time</span><strong id="statProductive">0h 0m</strong><small>Tracked activities</small></div>
-          <div class="stat-card"><span>Lazy / unproductive</span><strong id="statLazy">0h 0m</strong><small>Time outside productive work</small></div>
+          <div class="stat-card"><span>Unproductive time</span><strong id="statLazy">0h 0m</strong><small>Explicitly logged as unproductive</small></div><div class="stat-card"><span>Untracked time</span><strong id="statUntracked">0h 0m</strong><small>Not logged yet — not assumed lazy</small></div>
           <div class="stat-card"><span>Goal progress</span><strong id="statGoal">0%</strong><small id="statGoalText">0 active goals</small></div>
         </div>
         <div class="dashboard-grid lower">
+          <div class="panel"><div class="panel-head"><div><h3>Daily timeline</h3><p>Timed tasks and activities</p></div></div><div id="dailyTimeline" class="timeline"></div></div>
           <div class="panel"><div class="panel-head"><div><h3>Planned vs actual</h3><p>Today’s scheduled task time vs tracked productive time.</p></div></div><div id="plannedActual"></div></div>
           <div class="panel"><div class="panel-head"><div><h3>Productivity score</h3><p>Task completion, time quality and goal progress.</p></div></div><div id="scoreBreakdown"></div></div>
         </div>
@@ -106,7 +109,7 @@
         <div class="tracker-grid">
           <div class="panel timer-panel">
             <div class="timer-ring"><span id="timerDisplay">00:00:00</span><small id="timerStatus">Ready to track</small></div>
-            <div class="timer-controls"><select id="timerCategory"></select><button class="primary-btn" id="timerStart">▶ Start</button><button class="danger-btn hidden" id="timerStop">■ Stop</button></div>
+            <div class="timer-controls"><select id="timerCategory"></select><select id="timerTask"><option value="">No linked task</option></select><select id="timerGoal"><option value="">No linked goal</option></select><button class="primary-btn" id="timerStart">▶ Start</button><button class="danger-btn hidden" id="timerStop">■ Stop</button></div>
           </div>
           <div class="panel manual-panel">
             <div class="panel-head"><div><h3>Add time manually</h3><p>For activities you forgot to time live.</p></div></div>
@@ -114,6 +117,10 @@
               <label>Activity<select id="activityCategory" required></select></label>
               <label>Date<input id="activityDate" type="date" required></label>
               <label>Duration (minutes)<input id="activityDuration" type="number" min="1" required placeholder="e.g. 90"></label>
+              <label>Start time<input id="activityStart" type="time"></label>
+              <label>End time<input id="activityEnd" type="time"></label>
+              <label>Linked task<select id="activityTask"><option value="">No linked task</option></select></label>
+              <label>Linked goal<select id="activityGoal"><option value="">No linked goal</option></select></label>
               <label>Note<input id="activityNote" type="text" placeholder="Optional note"></label>
               <button class="primary-btn full" type="submit">+ Save activity</button>
             </form>
@@ -128,6 +135,8 @@
       <section id="goals" class="page">
         <div class="section-head"><div><span class="pill">Long-term progress</span><h2>My Goals</h2><p>Turn your plans into measurable targets.</p></div><button class="primary-btn" id="addGoalBtn">+ New Goal</button></div>
         <div id="goalCards" class="goal-cards"></div>
+      </section>
+
       <section id="calendar" class="page">
         <div class="section-head"><div><span class="pill">Planning view</span><h2>Calendar</h2><p>See tasks and tracked activities across the month.</p></div></div>
         <div class="panel calendar-panel">
@@ -145,7 +154,6 @@
           <div class="panel"><div class="panel-head"><div><h3>Goal health</h3><p>Progress and pace toward deadlines</p></div></div><div id="reviewGoals"></div></div>
         </div>
         <div class="panel"><div class="panel-head"><div><h3>Review insights</h3><p>Automatic observations from your recorded data</p></div></div><div id="reviewInsights" class="insights"></div></div>
-      </section>
       </section>
     </main>
   </div>
