@@ -14,8 +14,8 @@ function renderTasks(){
     <div class="task-actions"><span class="priority ${t.priority}">${t.priority}</span><span class="status ${t.status}">${t.status==='progress'?'in progress':t.status}</span><button class="icon-btn" onclick="openTaskModal('${t.id}')">✎</button><button class="icon-btn" onclick="deleteTask('${t.id}')">×</button></div>
   </div>`).join('');
 }
-function toggleTask(id){ const t=db.tasks.find(x=>x.id===id); if(!t)return; t.status=t.status==='completed'?'pending':'completed'; saveData(); renderTasks(); updateDashboard(); showToast(t.status==='completed'?'Task completed':'Task reopened'); }
-function deleteTask(id){ if(!confirm('Delete this task?'))return; db.tasks=db.tasks.filter(t=>t.id!==id); saveData(); renderTasks(); updateDashboard(); showToast('Task deleted'); }
+function toggleTask(id){ const t=db.tasks.find(x=>x.id===id); if(!t)return; t.status=t.status==='completed'?'pending':'completed'; saveData(); renderTasks(); updateDashboard(); showToast(t.status==='completed'?'Task completed successfully':'Task reopened successfully'); }
+function deleteTask(id){ if(!confirm('Delete this task?\n\nThis task will be permanently removed. Continue?'))return; db.tasks=db.tasks.filter(t=>t.id!==id); saveData(); renderTasks(); updateDashboard(); showToast('Task deleted'); }
 function openTaskModal(id=null){
  const t=id?db.tasks.find(x=>x.id===id):null;
  const modal=document.getElementById('modalContent');
